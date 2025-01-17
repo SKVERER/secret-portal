@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.5">
-    <title>פורטל כניסה</title>
+    <title>**סודי ביותר**</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
@@ -28,12 +28,13 @@
             padding: 30px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
+            width: 80%; /* הגבלת רוחב חלון הלבן */
         }
         .container h1 {
             margin-bottom: 30px;
         }
-        .container input {
-            width: 100%;
+        .container input, .container select {
+            width: calc(100% - 20px); /* הגבלת רוחב השדות */
             padding: 15px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
@@ -42,8 +43,35 @@
             font-size: 1.2em; /* הגדלת גודל הטקסט בתיבות */
             text-align: right; /* יישור הטקסט שבתיבות לימין */
         }
+        .container .recaptcha {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            justify-content: flex-start; /* יישור הכפתור לשמאל */
+        }
+        .container .recaptcha input {
+            margin-left: 10px;
+            width: 20px; /* גודל תיבת הסימון */
+            height: 20px; /* גודל תיבת הסימון */
+        }
+        .container .recaptcha img {
+            width: 50px; /* גודל הלוגו */
+            height: auto;
+            margin-left: 10px; /* רווח בין התיבה ללוגו */
+        }
+        .container .recaptcha label {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 0.8em; /* גודל טקסט */
+            font-family: Arial, sans-serif; /* שינוי הפונט לטקסט */
+        }
         .container button {
-            width: 100%;
+            width: calc(100% - 20px); /* הגבלת רוחב הכפתור */
             padding: 15px;
             background-image: url('https://lh6.googleusercontent.com/proxy/wyhp0n9ZO9KvQPBmL7taOaufr9irzzCLsR8lEpIQakqMAP77TSxzvQwVndID8myk0KnXV-M_wJjVPCc8ZpEdaw');
             background-size: cover;
@@ -55,6 +83,7 @@
             font-family: 'Rubik Wet Paint', cursive; /* שינוי הפונט בטקסט בתוך הכפתור */
             font-size: 2.5em; /* הגדלת גודל הטקסט בכפתור */
             text-align: center; /* יישור הטקסט בכפתור לימין */
+            align-self: flex-start; /* יישור הכפתור לשמאל החלון */
         }
         .container button:hover {
             background-color: #0056b3;
@@ -63,26 +92,44 @@
 </head>
 <body>
     <div class="container">
-        <h1>פורטל כניסה</h1>
-        <input type="date" id="dob" placeholder="תאריך לידה">
-        <input type="text" id="gematria" placeholder="ערך גימטריה של שם">
-        <input type="text" id="id" placeholder="שלוש ספרות אחרונות של מספר תעודת זהות">
+        <h1>כניסה לפורטל</h1>
+        <input type="number" id="dob" placeholder="שנת לידה" min="1900" max="2100">
+        <input type="number" id="gematria" placeholder="ערך גימטריה של שמך הפרטי" min="0">
+        <select id="question">
+            <option value="" disabled selected>בניין מגורים</option>
+            <option value="כחול">כחול</option>
+            <option value="אדום">אדום</option>
+            <option value="צהוב">צהוב</option>
+            <option value="ירוק">ירוק</option>
+            <option value="ורוד">אני יומית ישנה בלובי</option>
+        </select>
+        <div class="recaptcha">
+            <label for="recaptcha">
+                <input type="checkbox" id="recaptcha">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/RecaptchaLogo.svg/1200px-RecaptchaLogo.svg.png" alt="ReCaptcha Logo">
+                <span>I'm Not a Teacher</span>
+            </label>
+        </div>
         <button onclick="validate()">כניסה</button>
         <p id="message"></p>
     </div>
 
     <script>
         function validate() {
-            // כאן יש להוסיף את הבדיקות המתאימות לנתונים שנכנסו
+            // בדיקות נכונות של הנתונים
             var dob = document.getElementById("dob").value;
             var gematria = document.getElementById("gematria").value;
-            var id = document.getElementById("id").value;
+            var question = document.getElementById("question").value;
+            var recaptcha = document.getElementById("recaptcha").checked;
             var message = document.getElementById("message");
 
-            // זהו קוד בסיסי שיכול לדמות את התהליך
-            if (dob && gematria && id) {
-                message.textContent = "ברוך הבא!";
-                message.style.color = "green";
+            // תוצאות נכונות
+            var correctDob = "2008";
+            var correctGematria = "520";
+            var correctQuestion = "כחול";
+
+            if (dob === correctDob && gematria === correctGematria && question === correctQuestion && recaptcha) {
+                window.location.href = "https://whomi-whomi.github.io/secret-portal/mainsite.html";
             } else {
                 message.textContent = "נתונים שגויים, נסה שנית.";
                 message.style.color = "red";
