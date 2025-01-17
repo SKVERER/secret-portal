@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מגלול טקסט מגניב</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #83a4d4, #b6fbff);
+            overflow: hidden;
+            font-size: 2em;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+        }
+
+        .text-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="text-container">ברוכים הבאים לאתר המגניב שלנו!</div>
+    <div class="text-container hidden">גלול מטה כדי לראות את ההודעה הבאה.</div>
+    <div class="text-container hidden">ממשיכים לגלול? יש עוד מה לראות!</div>
+    <div class="text-container hidden">תהנו מהשימוש באתר!</div>
+    <script>
+        let currentIndex = 0;
+        const textContainers = document.querySelectorAll('.text-container');
+
+        document.addEventListener('scroll', () => {
+            if (window.scrollY > 0) {
+                textContainers[currentIndex].classList.add('hidden');
+                currentIndex = (currentIndex + 1) % textContainers.length;
+                textContainers[currentIndex].classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>
